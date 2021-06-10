@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-import uuid from "uuid";
+import { v4 as uuid } from "uuid";
 import VacationContext from "./VacationContext";
 import VacationReducer from "./VacationReducer";
 import {
@@ -45,6 +45,10 @@ const VacationState = (props) => {
   const [state, dispatch] = useReducer(VacationReducer, initialState);
 
   // Add Vacation
+  const addVacation = (vacation) => {
+    vacation.id = uuid();
+    dispatch({ type: ADD_VACATION, payload: vacation });
+  };
 
   // Delete Vacation
 
@@ -62,6 +66,7 @@ const VacationState = (props) => {
     <VacationContext.Provider
       value={{
         vacations: state.vacations,
+        addVacation,
       }}
     >
       {props.children}

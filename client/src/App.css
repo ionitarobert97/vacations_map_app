@@ -65,7 +65,7 @@ a {
   margin: 0.7rem 0;
   background-color:rgb(241, 241, 241) ;
 }
-.containerVacation{
+.containerVacations{
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 2rem;
@@ -89,4 +89,30 @@ a {
 }
 .container-photos{
   margin: 0.5rem auto;
+}
+
+/* Vacation Form */
+input {
+  margin: 1.2rem 0;
+  z-index: 1;
+}
+.myInput {
+  display: block;
+  width: 100%;
+  padding: 0.4rem;
+  font-size: 1.2rem;
+  border: 1px solid #ccc;
+  z-index: 2;
+}
+.btnSubmit{
+  font: inherit;
+  display: block;
+  width: 100%;
+  background: rgba(9, 9, 251, 0.678);
+  color: #fff;
+}
+.vacationTitle{
+  display: block;
+  margin-top: 0.3rem;
+  text-align: center;
 }
