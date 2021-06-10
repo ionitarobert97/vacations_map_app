@@ -1,0 +1,9 @@
+export const ADD_VACATION = "ADD_VACATION";
+export const DELETE_CONTACT = "DELETE_VACATION";
+export const SET_CURRENT = "SET_CURRENT";
+export const CLEAR_CURRENT = "CLEAR_CURRENT";
+export const UPDATE_VACATION = "UPDATE_VACATION";
+export const FILTER_VACATIONS = "UPDATE_VACATIONS";
+export const CLEAR_FILTER = "CLEAR_FILTER";
+export const SET_ALERT = "SET_ALERT";
+export const REMOVE_ALERT = "REMOVE_ALERT";
