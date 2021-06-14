@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
+import VacationContext from "../../context/vacation/VacationContext";
 
 const VacationItem = ({ vacation }) => {
+  const vacationContext = useContext(VacationContext);
+  const { deleteVacation, setCurrent, clearCurrent } = vacationContext;
+
   const { id, country, city, photos, location, date } = vacation;
+
+  const onDelete = () => {
+    deleteVacation(id);
+    clearCurrent();
+  };
 
   return (
     <div className="card-vacation">
@@ -13,8 +22,12 @@ const VacationItem = ({ vacation }) => {
       <div className="container-photos">{photos}</div>
       <h4 className="vacation-date">{date}</h4>
       <p>
-        <button className="btn btn-edit">Edit</button>
-        <button className="btn btn-delete">Delete</button>
+        <button className="btn btn-edit" onClick={() => setCurrent(vacation)}>
+          Edit
+        </button>
+        <button className="btn btn-delete" onClick={onDelete}>
+          Delete
+        </button>
       </p>
     </div>
   );

@@ -40,6 +40,7 @@ const VacationState = (props) => {
         date: "yes",
       },
     ],
+    current: null,
   };
 
   const [state, dispatch] = useReducer(VacationReducer, initialState);
@@ -51,12 +52,24 @@ const VacationState = (props) => {
   };
 
   // Delete Vacation
+  const deleteVacation = (id) => {
+    dispatch({ type: DELETE_VACATION, payload: id });
+  };
 
   // Set Current Vacation
+  const setCurrent = (vacation) => {
+    dispatch({ type: SET_CURRENT, payload: vacation });
+  };
 
   // Clear Current Vacation
+  const clearCurrent = () => {
+    dispatch({ type: CLEAR_CURRENT });
+  };
 
   // Update Vacation
+  const updateVacation = (vacation) => {
+    dispatch({ type: UPDATE_VACATION, payload: vacation });
+  };
 
   // Filter Vacations
 
@@ -67,6 +80,11 @@ const VacationState = (props) => {
       value={{
         vacations: state.vacations,
         addVacation,
+        deleteVacation,
+        current: state.current,
+        setCurrent,
+        clearCurrent,
+        updateVacation
       }}
     >
       {props.children}

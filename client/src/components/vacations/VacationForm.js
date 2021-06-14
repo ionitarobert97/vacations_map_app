@@ -1,9 +1,26 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import VacationContext from "../../context/vacation/VacationContext";
 import Vacations from "./Vacations";
 
 const VacationForm = () => {
   const vacationContext = useContext(VacationContext);
+
+  const { addVacation, updateVacation, current, clearCurrent } =
+    vacationContext;
+
+  useEffect(() => {
+    if (current !== null) {
+      setVacation(current);
+    } else {
+      setVacation({
+        country: "",
+        city: "",
+        photos: "",
+        location: "",
+        date: "",
+      });
+    }
+  }, [vacationContext, current]);
 
   const [vacation, setVacation] = useState({
     country: "",
@@ -13,14 +30,22 @@ const VacationForm = () => {
     date: "",
   });
 
+  const clearAll = () => {
+    clearCurrent();
+  };
+
   const { country, city, photos, location, date } = vacation;
 
-  const onChange = e =>
+  const onChange = (e) =>
     setVacation({ ...vacation, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
     e.preventDefault();
-    vacationContext.addVacation(vacation);
+    if (current === null) {
+      addVacation(vacation);
+    } else {
+      updateVacation(vacation);
+    }
     setVacation({
       country: "",
       city: "",
@@ -32,7 +57,9 @@ const VacationForm = () => {
 
   return (
     <form onSubmit={onSubmit} className="myForm">
-      <h2 className="vacationTitle">Add Vacation</h2>
+      <h2 className="vacationTitle">
+        {current ? "Edit Vacation" : "Add Vacation"}
+      </h2>
       <input
         className="myInput"
         type="text"
@@ -74,8 +101,19 @@ const VacationForm = () => {
         onChange={onChange}
       />
       <div>
-        <input className="btnSubmit" type="submit" value="Add Vacation" />
+        <input
+          className="btnSubmit"
+          type="submit"
+          value={current ? "Update Vacation" : "Add Vacation"}
+        />
       </div>
+      {current && (
+        <div>
+          <button className="btnClear" onClick={clearAll}>
+            Clear
+          </button>
+        </div>
+      )}
     </form>
   );
 };
