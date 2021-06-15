@@ -41,6 +41,7 @@ const VacationState = (props) => {
       },
     ],
     current: null,
+    filtered: null
   };
 
   const [state, dispatch] = useReducer(VacationReducer, initialState);
@@ -72,19 +73,28 @@ const VacationState = (props) => {
   };
 
   // Filter Vacations
+  const filterVacation = text => {
+    dispatch({ type: FILTER_VACATIONS, payload: text });
+  };
 
   // Clear Filter
+  const clearFilter = () => {
+    dispatch({ type: CLEAR_FILTER });
+  };
 
   return (
     <VacationContext.Provider
       value={{
         vacations: state.vacations,
+        current: state.current,
+        filtered: state.filtered,
         addVacation,
         deleteVacation,
-        current: state.current,
         setCurrent,
         clearCurrent,
-        updateVacation
+        updateVacation,
+        filterVacation,
+        clearFilter
       }}
     >
       {props.children}

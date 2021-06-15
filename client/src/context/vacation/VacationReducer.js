@@ -39,6 +39,19 @@ export default (state, action) => {
         ...state,
         current: null,
       };
+    case FILTER_VACATIONS:
+      return {
+        ...state,
+        filtered: state.vacations.filter(vacation => {
+          const regex = new RegExp(`${action.payload}`, 'gi');
+          return vacation.country.match(regex) || vacation.country.match(regex);
+        })
+      };
+    case CLEAR_FILTER:
+      return {
+        ...state,
+        filtered: null
+      }
     default:
       return state;
   }
