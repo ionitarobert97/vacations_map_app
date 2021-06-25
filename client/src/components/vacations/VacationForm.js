@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
 import VacationContext from "../../context/vacation/VacationContext";
-import Vacations from "./Vacations";
 
 const VacationForm = () => {
   const vacationContext = useContext(VacationContext);

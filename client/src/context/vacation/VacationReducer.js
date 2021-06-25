@@ -6,14 +6,23 @@ import {
   UPDATE_VACATION,
   FILTER_VACATIONS,
   CLEAR_FILTER,
+  VACATION_ERROR,
+  GET_VACATION,
 } from "../types";
 
 export default (state, action) => {
   switch (action.type) {
+    case GET_VACATION:
+      return {
+        ...state,
+        vacations: action.payload,
+        loading: false
+      }
     case ADD_VACATION:
       return {
         ...state,
         vacations: [...state.vacations, action.payload],
+        loading: false
       };
     case UPDATE_VACATION:
       return {
@@ -51,6 +60,11 @@ export default (state, action) => {
       return {
         ...state,
         filtered: null
+      }
+    case VACATION_ERROR:
+      return {
+        ...state,
+        error: action.payload
       }
     default:
       return state;

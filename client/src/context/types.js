@@ -1,4 +1,6 @@
 export const ADD_VACATION = "ADD_VACATION";
+export const GET_VACATION = "GET_VACATION";
+export const CLEAR_VACATION = "CLEAR_VACATION";
 export const DELETE_VACATION = "DELETE_VACATION";
 export const SET_CURRENT = "SET_CURRENT";
 export const CLEAR_CURRENT = "CLEAR_CURRENT";
@@ -15,3 +17,4 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILED = "LOGIN_FAILED";
 export const LOGOUT = "LOGOUT";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
+export const VACATION_ERROR = "VACATION_ERROR"

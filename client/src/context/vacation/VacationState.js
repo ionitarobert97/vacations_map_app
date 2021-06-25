@@ -1,8 +1,10 @@
 import React, { useReducer } from "react";
-import { v4 as uuid } from "uuid";
+import axios from "axios";
 import VacationContext from "./VacationContext";
 import VacationReducer from "./VacationReducer";
 import {
+  GET_VACATION,
+  CLEAR_VACATION,
   ADD_VACATION,
   DELETE_VACATION,
   SET_CURRENT,
@@ -10,46 +12,45 @@ import {
   UPDATE_VACATION,
   FILTER_VACATIONS,
   CLEAR_FILTER,
+  VACATION_ERROR,
 } from "../types";
 
 const VacationState = (props) => {
   const initialState = {
-    vacations: [
-      {
-        id: 1,
-        country: "France",
-        city: "Paris",
-        photos: "da",
-        location: "google-location",
-        date: "yes",
-      },
-      {
-        id: 2,
-        country: "Romania",
-        city: "Bucharest",
-        photos: "da",
-        location: "google-location",
-        date: "yes",
-      },
-      {
-        id: 3,
-        country: "Spain",
-        city: "Madrid",
-        photos: "da",
-        location: "google-location",
-        date: "yes",
-      },
-    ],
+    vacations: [],
     current: null,
-    filtered: null
+    filtered: null,
+    error: null,
   };
 
   const [state, dispatch] = useReducer(VacationReducer, initialState);
 
+  // Get Vacation
+  const getVacations = async () => {
+    try {
+      const res = await axios.get("/api/vacations");
+
+      dispatch({ type: GET_VACATION, payload: res.data });
+    } catch (err) {
+      dispatch({ type: VACATION_ERROR, payload: err.response.msg });
+    }
+  };
+
   // Add Vacation
-  const addVacation = (vacation) => {
-    vacation.id = uuid();
-    dispatch({ type: ADD_VACATION, payload: vacation });
+  const addVacation = async (vacation) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      const res = await axios.post("/api/vacations", vacation, config);
+
+      dispatch({ type: ADD_VACATION, payload: res.data });
+    } catch (err) {
+      dispatch({ type: VACATION_ERROR, payload: err.response.msg });
+    }
   };
 
   // Delete Vacation
@@ -73,7 +74,7 @@ const VacationState = (props) => {
   };
 
   // Filter Vacations
-  const filterVacation = text => {
+  const filterVacation = (text) => {
     dispatch({ type: FILTER_VACATIONS, payload: text });
   };
 
@@ -88,13 +89,15 @@ const VacationState = (props) => {
         vacations: state.vacations,
         current: state.current,
         filtered: state.filtered,
+        error: state.error,
         addVacation,
         deleteVacation,
         setCurrent,
         clearCurrent,
         updateVacation,
         filterVacation,
-        clearFilter
+        clearFilter,
+        getVacations
       }}
     >
       {props.children}
