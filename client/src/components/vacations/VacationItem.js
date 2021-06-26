@@ -6,10 +6,10 @@ const VacationItem = ({ vacation }) => {
   const vacationContext = useContext(VacationContext);
   const { deleteVacation, setCurrent, clearCurrent } = vacationContext;
 
-  const { id, country, city, photos, location, date } = vacation;
+  const { _id, country, city, photos, location, date } = vacation;
 
   const onDelete = () => {
-    deleteVacation(id);
+    deleteVacation(_id);
     clearCurrent();
   };
 

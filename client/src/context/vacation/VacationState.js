@@ -4,7 +4,7 @@ import VacationContext from "./VacationContext";
 import VacationReducer from "./VacationReducer";
 import {
   GET_VACATION,
-  CLEAR_VACATION,
+  CLEAR_VACATIONS,
   ADD_VACATION,
   DELETE_VACATION,
   SET_CURRENT,
@@ -17,7 +17,7 @@ import {
 
 const VacationState = (props) => {
   const initialState = {
-    vacations: [],
+    vacations: null,
     current: null,
     filtered: null,
     error: null,
@@ -54,8 +54,44 @@ const VacationState = (props) => {
   };
 
   // Delete Vacation
-  const deleteVacation = (id) => {
-    dispatch({ type: DELETE_VACATION, payload: id });
+  const deleteVacation = async (id) => {
+    try {
+      await axios.delete(`/api/vacations/${id}`);
+
+      dispatch({
+        type: DELETE_VACATION,
+        payload: id,
+      });
+    } catch (err) {
+      dispatch({ type: VACATION_ERROR, payload: err.response.msg });
+    }
+  };
+
+  // Update Vacation
+  const updateVacation = async (vacation) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      const res = await axios.put(`/api/vacations/${vacation._id}`, vacation, config);
+
+      dispatch({ 
+        type: UPDATE_VACATION, 
+        payload: res.data
+      });
+    } catch (err) {
+      dispatch({ 
+        type: VACATION_ERROR, 
+        payload: err.response.msg });
+    }
+  };
+
+  // Clear Vacations
+  const clearVacations = () => {
+    dispatch({ type: CLEAR_VACATIONS });
   };
 
   // Set Current Vacation
@@ -68,10 +104,6 @@ const VacationState = (props) => {
     dispatch({ type: CLEAR_CURRENT });
   };
 
-  // Update Vacation
-  const updateVacation = (vacation) => {
-    dispatch({ type: UPDATE_VACATION, payload: vacation });
-  };
 
   // Filter Vacations
   const filterVacation = (text) => {
@@ -97,7 +129,8 @@ const VacationState = (props) => {
         updateVacation,
         filterVacation,
         clearFilter,
-        getVacations
+        getVacations,
+        clearVacations,
       }}
     >
       {props.children}

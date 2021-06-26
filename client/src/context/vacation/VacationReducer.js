@@ -8,6 +8,7 @@ import {
   CLEAR_FILTER,
   VACATION_ERROR,
   GET_VACATION,
+  CLEAR_VACATIONS,
 } from "../types";
 
 export default (state, action) => {
@@ -16,27 +17,35 @@ export default (state, action) => {
       return {
         ...state,
         vacations: action.payload,
-        loading: false
-      }
+        loading: false,
+      };
     case ADD_VACATION:
       return {
         ...state,
-        vacations: [...state.vacations, action.payload],
-        loading: false
+        vacations: [, action.payload, ...state.vacations],
+        loading: false,
       };
     case UPDATE_VACATION:
       return {
         ...state,
         vacations: state.vacations.map((vacation) =>
-          vacation.id === action.payload.id ? action.payload : vacation
+          vacation._id === action.payload._id ? action.payload : vacation
         ),
       };
     case DELETE_VACATION:
       return {
         ...state,
         vacations: state.vacations.filter(
-          (vacation) => vacation.id !== action.payload
+          (vacation) => vacation._id !== action.payload
         ),
+      };
+    case CLEAR_VACATIONS:
+      return {
+        ...state,
+        vacations: null,
+        filtered: null,
+        error: null,
+        current: null,
       };
     case SET_CURRENT:
       return {
@@ -51,21 +60,21 @@ export default (state, action) => {
     case FILTER_VACATIONS:
       return {
         ...state,
-        filtered: state.vacations.filter(vacation => {
-          const regex = new RegExp(`${action.payload}`, 'gi');
+        filtered: state.vacations.filter((vacation) => {
+          const regex = new RegExp(`${action.payload}`, "gi");
           return vacation.country.match(regex) || vacation.country.match(regex);
-        })
+        }),
       };
     case CLEAR_FILTER:
       return {
         ...state,
-        filtered: null
-      }
+        filtered: null,
+      };
     case VACATION_ERROR:
       return {
         ...state,
-        error: action.payload
-      }
+        error: action.payload,
+      };
     default:
       return state;
   }
