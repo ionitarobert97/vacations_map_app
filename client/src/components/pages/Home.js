@@ -3,6 +3,7 @@ import Vacations from "../vacations/Vacations";
 import VacationForm from "../vacations/VacationForm";
 import VacationFilter from "../vacations/VacationFilter";
 import AuthContext from "../../context/auth/authContext";
+import GoogleMap from "../google-map/GoogleMap";
 
 const Home = () => {
   const authContext = useContext(AuthContext);
@@ -13,15 +14,18 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="containerVacations">
-      <div>
-        <VacationForm />
+    <>
+      <div className="containerVacations">
+        <div>
+          <GoogleMap />
+        </div>
+        <div>
+          <VacationForm />
+          <VacationFilter />
+          <Vacations />
+        </div>
       </div>
-      <div>
-        <VacationFilter />
-        <Vacations />
-      </div>
-    </div>
+    </>
   );
 };
 
