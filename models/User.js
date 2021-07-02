@@ -14,7 +14,11 @@ const UserSchema = mongoose.Schema({
         type: String,
         require: true
     },
-    date: {
+    checkInDate: {
+        type: Date,
+        default: Date.now,
+    },
+    checkOutDate: {
         type: Date,
         default: Date.now,
     },

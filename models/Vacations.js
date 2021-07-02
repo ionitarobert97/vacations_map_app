@@ -14,14 +14,14 @@ const VacationSchema = mongoose.Schema({
         require: true
     },
     photos: {
-        type: String,   // To be modified
+        type: String,
         require: true,
     },
-    location: {         // To be modified
-        type: String,
-        require: true
+    checkInDate: {
+        type: Date,
+        default: Date.now,
     },
-    date: {
+    checkOutDate: {
         type: Date,
         default: Date.now,
     },

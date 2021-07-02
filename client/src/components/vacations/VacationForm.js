@@ -33,7 +33,7 @@ const VacationForm = () => {
     clearCurrent();
   };
 
-  const { country, city, photos, location, date } = vacation;
+  const { country, city, photos, checkInDate, checkOutDate } = vacation;
 
   const onChange = (e) =>
     setVacation({ ...vacation, [e.target.name]: e.target.value });
@@ -75,31 +75,35 @@ const VacationForm = () => {
         value={city}
         onChange={onChange}
       />
+      <span>Please enter vacation images</span>
       <input
         className="myInput"
-        type="text"
-        name="location"
-        placeholder="location"
-        value={location}
-        onChange={onChange}
-      />
-      <input
-        className="myInput"
-        type="text"
+        type="file"
         name="photos"
         placeholder="photos"
+        accept="image/*"
         value={photos}
         onChange={onChange}
       />
+      <span>Check-in</span>
       <input
         className="myInput"
         type="date"
         name="date"
         placeholder="date"
-        value={date}
+        value={checkInDate}
         onChange={onChange}
       />
-      <div>
+      <span>Check-out</span>
+      <input
+        className="myInput"
+        type="date"
+        name="date"
+        placeholder="date"
+        value={checkOutDate}
+        onChange={onChange}
+      />
+      <div className="divFormSubmit">
         <input
           className="btnSubmit"
           type="submit"

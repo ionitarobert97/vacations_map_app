@@ -44,12 +44,13 @@ const Login = (props) => {
 
   return (
     <div className="registerContainer">
-      <h1>
+      <h1 className="TitleLoginRegister">
         Account <span>Login</span>
       </h1>
-      <form onSubmit={onSubmit}>
-        <div className="groupRegister">
-          <label htmlFor="email">Email Address</label>
+      
+      <form className="LoginRegisterContent" onSubmit={onSubmit}>
+        <div className="groupRegisterLogin">
+          <label htmlFor="email">Email Address: </label>
           <input
             type="email"
             name="email"
@@ -58,8 +59,8 @@ const Login = (props) => {
             required
           />
         </div>
-        <div className="groupRegister">
-          <label htmlFor="password">Password</label>
+        <div className="groupRegisterLogin">
+          <label htmlFor="password">Password: </label>
           <input
             type="password"
             name="password"
@@ -68,7 +69,7 @@ const Login = (props) => {
             required
           />
         </div>
-        <input type="submit" value="Login" className="btn" />
+        <input type="submit" value="Login" className="btnLoginRegister" />
       </form>
     </div>
   );

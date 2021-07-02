@@ -33,7 +33,7 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { country, city, photos, location, date } = req.body;
+    const { country, city, photos, location, checkInDate, checkOutDate } = req.body;
 
     try {
       const newVacation = new Vacation({
@@ -41,7 +41,8 @@ router.post(
         city,
         photos,
         location,
-        date,
+        checkInDate,
+        checkOutDate,
         user: req.user.id,
       });
 
